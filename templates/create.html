@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>読書管理アプリ</title>
+</head>
+<body>
+    <form action="create" method="post">
+        タイトル：<input type="text" name="title" placeholder="タイトルを入力してください" size="30"><br>
+        価格：<input type="text" name="price" placeholder="価格を入力してください" size="30"><br>
+        評価：
+        <select name="review">
+            <option value="1">☆１</option>
+            <option value="2">☆2</option>
+            <option value="3">☆3</option>
+            <option value="4">☆4</option>
+            <option value="5">☆5</option>
+        </select><br>
+        画像ファイル：<input type="file" name="img_file" value="img_file"><br>
+        感想：<textarea name="impression" rows="5" cols="50"></textarea><br>
+        <input type="submit" name="btn" value="登録">
+    </form>
+</body>
+</html>
