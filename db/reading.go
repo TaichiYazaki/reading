@@ -7,6 +7,6 @@ type Reading struct {
 	Title      string
 	Price      string
 	Review     string
-	imgFile    string
-	impression string
+	ImgFile    string
+	Impression string
 }
