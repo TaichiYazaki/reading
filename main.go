@@ -35,6 +35,15 @@ func main() {
 			"reading": reading,
 		})
 	})
+	router.GET("/edit/:id", func(ctx *gin.Context) {
+		var id int
+		getId := ctx.Param("id")
+		id, _ = strconv.Atoi(getId)
+		reading := db.DbFindOne(id)
+		ctx.HTML(200, "edit.html", gin.H{
+			"reading": reading,
+		})
+	})
 	router.POST("/create", func(ctx *gin.Context) {
 		title := ctx.PostForm("title")
 		price := ctx.PostForm("price")
@@ -48,6 +57,22 @@ func main() {
 		if err != nil {
 			log.Fatal("ファイル確保の失敗")
 		}
+		ctx.Redirect(302, "/")
+	})
+	router.POST("/update/:id", func(ctx *gin.Context) {
+		getId := ctx.Param("id")
+		id, _ := strconv.Atoi(getId)
+		title := ctx.PostForm("title")
+		price := ctx.PostForm("price")
+		review := ctx.PostForm("review")
+		impression := ctx.PostForm("impression")
+		db.DbUpdate(id, title, price, review, impression)
+		ctx.Redirect(302, "/")
+	})
+	router.GET("/delete/:id", func(ctx *gin.Context) {
+		getId := ctx.Param("id")
+		id, _ := strconv.Atoi(getId)
+		db.DbDelete(id)
 		ctx.Redirect(302, "/")
 	})
 	router.Run(":8080")

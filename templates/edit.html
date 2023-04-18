@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>編集画面</title>
+</head>
+<body>
+    <form action="/update/{{ .reading.ID}}" method="post">
+        タイトル：<input type="text" name="title" value="{{ .reading.Title}}"><br>
+        価格：<input type="text" name="price" value="{{ .reading.Price}}"><br>
+        評価：
+        <select name="review">
+            <option value="{{ .reading.Review}}">☆{{ .reading.Review}}</option>
+            <option value="1">☆1</option>
+            <option value="2">☆2</option>
+            <option value="3">☆3</option>
+            <option value="4">☆4</option>
+            <option value="5">☆5</option>
+        </select><br>
+        <div>感想：</div>
+        <textarea name="impression" rows="5" cols="50">{{ .reading.Impression}}</textarea><br>
+        <input type="submit" name="btn" value="更新">
+    </form>
+</body>
+</html>
