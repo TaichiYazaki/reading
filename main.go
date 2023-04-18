@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"reading/db"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -25,9 +26,13 @@ func main() {
 	router.GET("/create", func(ctx *gin.Context) {
 		ctx.HTML(200, "create.html", gin.H{})
 	})
-	router.GET("/item", func(ctx *gin.Context) {
+	router.GET("/item/:id", func(ctx *gin.Context) {
+		var id int
+		getId := ctx.Param("id")
+		id, _ = strconv.Atoi(getId)
+		reading := db.DbFindOne(id)
 		ctx.HTML(200, "item.html", gin.H{
-			"ok": "success",
+			"reading": reading,
 		})
 	})
 	router.POST("/create", func(ctx *gin.Context) {

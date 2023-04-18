@@ -46,3 +46,13 @@ func DbFindAll() []Reading {
 	db.Find(&readings)
 	return readings
 }
+
+func DbFindOne(id int) Reading {
+	db, err := DatabaseConnection()
+	if err != nil {
+		log.Fatal(err)
+	}
+	var reading Reading
+	db.Find(&reading, id)
+	return reading
+}
