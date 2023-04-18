@@ -1,0 +1,12 @@
+.bl_flexContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10;
+}
+
+.el_flexItem{
+    width: 20%;
+    height: 300px;
+    list-style: none;
+}
