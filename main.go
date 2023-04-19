@@ -1,8 +1,6 @@
 package main
 
 import (
-	"log"
-	"os"
 	"reading/db"
 	"strconv"
 
@@ -16,6 +14,8 @@ func main() {
 	router.LoadHTMLGlob("templates/*")
 	router.Static("/styles", "./styles")
 	router.Static("/img", "./img")
+	// マルチパートフォームが利用できるメモリの制限を設定する(デフォルトは 32 MiB)
+	router.MaxMultipartMemory = 8 << 20
 
 	router.GET("/", func(ctx *gin.Context) {
 		readings := db.DbFindAll()
@@ -48,15 +48,11 @@ func main() {
 		title := ctx.PostForm("title")
 		price := ctx.PostForm("price")
 		review := ctx.PostForm("review")
-		file := ctx.PostForm("file")
+		file, _ := ctx.FormFile("file")
 		impression := ctx.PostForm("impression")
-		db.DbCreate(title, price, review, file, impression)
-		ctx.Redirect(302, "/")
-		filePath := "/Users/YAZAKITAICHI/env/go_env/reading/img/" + file
-		_, err := os.Create(filePath)
-		if err != nil {
-			log.Fatal("ファイル確保の失敗")
-		}
+		db.DbCreate(title, price, review, file.Filename, impression)
+		filePath := "/Users/YAZAKITAICHI/env/go_env/reading/img/" + file.Filename
+		ctx.SaveUploadedFile(file, filePath)
 		ctx.Redirect(302, "/")
 	})
 	router.POST("/update/:id", func(ctx *gin.Context) {
