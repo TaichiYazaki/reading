@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+func router() *gin.Engine {
 	db.DbInit()
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
@@ -20,11 +20,10 @@ func main() {
 	router.GET("/edit/:id", getEdit)
 	router.GET("/delete/:id", delete)
 	router.POST("/create", postCreate)
-	router.Run()
+	return router
 }
 
-// 	router.GET("/delete/:id", func(ctx *gin.Context) {
-//
-// 	})
-// 	router.Run(":8080")
-// }
+func main() {
+	r := router()
+	r.Run()
+}
