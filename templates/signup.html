@@ -8,10 +8,11 @@
 </head>
 <body>
     <h2>ユーザー登録</h2>
-    <form action="sendUserInfo" method="post">
-        ユーザー名：<input type="text" name="userName"><br>
-        メールアドレス：<input type="text" name="email"><br>
-        パスワード：<input type="password" name="password"><br>
+    <p> {{ .err}}</p>
+    <form action="/user/send" method="post">
+        ユーザー名：<input type="text" name="name" placeholder="ユーザー名を入力してください" size="30"><br>
+        メールアドレス：<input type="text" name="email" placeholder="半角英数字で入力してください" size="30"><br>
+        パスワード：<input type="password" name="password" placeholder="半角英数字で入力してください" size="30"><br>
         <input type="submit" value="登録">
     </form>
 </body>

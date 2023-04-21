@@ -14,3 +14,12 @@ func UserDbInit() {
 	}
 	db.AutoMigrate(&user)
 }
+
+func UserCreate(name string, email string, password string) {
+	db, err := db.DatabaseConnection()
+	if err != nil {
+		log.Fatal(err)
+	}
+	user := model.User{Name: name, Email: email, Password: password}
+	db.Create(&user)
+}

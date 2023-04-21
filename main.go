@@ -25,6 +25,7 @@ func router() *gin.Engine {
 	user := router.Group("/user")
 	{
 		user.GET("/signup", controller.UserSignUpPage)
+		user.POST("/send", controller.UserCreate)
 	}
 	return router
 }
