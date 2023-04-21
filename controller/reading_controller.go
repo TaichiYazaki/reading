@@ -7,18 +7,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetIndex(ctx *gin.Context) {
+func ReadingIndexPage(ctx *gin.Context) {
 	readings := repository.DbFindAll()
 	ctx.HTML(200, "index.html", gin.H{
 		"readings": readings,
 	})
 }
 
-func GetCreate(ctx *gin.Context) {
+func ReadingCreatePage(ctx *gin.Context) {
 	ctx.HTML(200, "create.html", gin.H{})
 }
 
-func GetItem(ctx *gin.Context) {
+func ReadingItemPage(ctx *gin.Context) {
 	var id int
 	getId := ctx.Param("id")
 	id, _ = strconv.Atoi(getId)
@@ -28,7 +28,7 @@ func GetItem(ctx *gin.Context) {
 	})
 }
 
-func GetEdit(ctx *gin.Context) {
+func ReadingEditPage(ctx *gin.Context) {
 	var id int
 	getId := ctx.Param("id")
 	id, _ = strconv.Atoi(getId)
@@ -37,7 +37,7 @@ func GetEdit(ctx *gin.Context) {
 		"reading": reading,
 	})
 }
-func PostCreate(ctx *gin.Context) {
+func ReadingCreate(ctx *gin.Context) {
 	title := ctx.PostForm("title")
 	price := ctx.PostForm("price")
 	review := ctx.PostForm("review")
@@ -49,7 +49,7 @@ func PostCreate(ctx *gin.Context) {
 	ctx.Redirect(302, "/")
 }
 
-func Delete(ctx *gin.Context) {
+func ReadingDelete(ctx *gin.Context) {
 	getId := ctx.Param("id")
 	id, _ := strconv.Atoi(getId)
 	repository.DbDelete(id)

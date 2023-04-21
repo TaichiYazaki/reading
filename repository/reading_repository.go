@@ -6,7 +6,7 @@ import (
 	"reading/model"
 )
 
-func DbInit() {
+func ReadingDbInit() {
 	reading := model.Reading{}
 	db, err := db.DatabaseConnection()
 	if err != nil {

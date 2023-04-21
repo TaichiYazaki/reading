@@ -8,23 +8,25 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetIndex(t *testing.T) {
-	router := router()
-	req, _ := http.NewRequest("GET", "/", nil)
-	w := httptest.NewRecorder()
-	router.ServeHTTP(w, req)
-	assert.Equal(t, 200, w.Code)
-}
+type mockResponseWriter struct{}
 
 type Param struct {
 	Key   string
 	Value string
 }
 
-func TestItem(t *testing.T) {
-	// router := router()
-	// routed := false
-	// router.Handle("GET", "/item/:id", func(w http.ResponseWriter, r *http.Request, ps Param) {
-	// })
-
+func TestGetIndex(t *testing.T) {
+	router := router()
+	// NewRequest returns a new incoming server Request, suitable for passing to an http.Handler for testing
+	req, _ := http.NewRequest("GET", "/", nil)
+	// NewRecorder returns an initialized ResponseRecorder.
+	w := httptest.NewRecorder()
+	// ServeHTTP dispatches the request to the handler whose pattern most closely matches the request URL.
+	router.ServeHTTP(w, req)
+	assert.Equal(t, 200, w.Code)
 }
+
+// func TestItem(t *testing.T) {
+// 	router := router()
+
+// }
