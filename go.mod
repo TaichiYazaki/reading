@@ -4,6 +4,8 @@ go 1.20
 
 require github.com/stretchr/testify v1.8.2
 
+require github.com/mattn/go-sqlite3 v1.14.15 // indirect
+
 require (
 	github.com/bytedance/sonic v1.8.7 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
@@ -35,5 +37,6 @@ require (
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.5.0 // indirect
+	gorm.io/driver/sqlite v1.5.0
 	gorm.io/gorm v1.25.0 // indirect
 )
