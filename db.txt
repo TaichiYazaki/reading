@@ -1,0 +1,12 @@
+sqlite3 golang.db
+
+CREATE TABLE readings(
+id integer primary key autoincrement,
+created_at datetime,
+updated_at datetime,
+deleted_at datetime,
+title text,
+price text,
+review text,
+img_file text,
+impression text);

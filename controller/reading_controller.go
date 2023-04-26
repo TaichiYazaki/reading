@@ -44,7 +44,7 @@ func ReadingCreate(ctx *gin.Context) {
 	file, _ := ctx.FormFile("file")
 	impression := ctx.PostForm("impression")
 	repository.DbCreate(title, price, review, file.Filename, impression)
-	filePath := "/Users/YAZAKITAICHI/env/go_env/reading/img/" + file.Filename
+	filePath := "C:\\Users\\tyazaki\\Documents\\env\\golang\\reading\\img\\" + file.Filename
 	ctx.SaveUploadedFile(file, filePath)
 	ctx.Redirect(302, "/")
 }
