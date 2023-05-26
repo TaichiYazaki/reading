@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"reading/repository"
 	"strconv"
 
@@ -9,6 +10,7 @@ import (
 
 func ReadingIndexPage(ctx *gin.Context) {
 	readings := repository.DbFindAll()
+	fmt.Println(readings)
 	ctx.HTML(200, "index.html", gin.H{
 		"readings": readings,
 	})
