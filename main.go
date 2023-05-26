@@ -1,14 +1,16 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"reading/controller"
 	"reading/repository"
 
 	"github.com/gin-gonic/gin"
 )
 
-func router() *gin.Engine {
-	repository.ReadingDbInit()
+func router() (*gin.Engine, error) {
+	err:= repository.ReadingDbInit()
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
 	router.Static("/styles", "./styles")
@@ -21,16 +23,19 @@ func router() *gin.Engine {
 	router.GET("/edit/:id", controller.ReadingEditPage)
 	router.GET("/delete/:id", controller.ReadingDelete)
 	router.POST("/create", controller.ReadingCreate)
-
 	user := router.Group("/user")
 	{
 		user.GET("/signup", controller.UserSignUpPage)
 		user.POST("/send", controller.UserCreate)
 	}
-	return router
+	return router, err
 }
 
 func main() {
-	r := router()
+	r, err := router()
+	if err !=nil{
+		log.Fatal(err)
+	}
 	r.Run()
+	fmt.Println("aaaa")
 }

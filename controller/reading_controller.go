@@ -1,16 +1,20 @@
 package controller
 
 import (
-	"fmt"
+	"log"
 	"reading/repository"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
+const imgPath = "C:\\Users\\tyazaki\\Documents\\env\\golang\\reading\\img\\"
+
 func ReadingIndexPage(ctx *gin.Context) {
-	readings := repository.DbFindAll()
-	fmt.Println(readings)
+	readings, err := repository.DbFindAll()
+	if err != nil{
+		log.Fatal(err)
+	}
 	ctx.HTML(200, "index.html", gin.H{
 		"readings": readings,
 	})
@@ -24,7 +28,10 @@ func ReadingItemPage(ctx *gin.Context) {
 	var id int
 	getId := ctx.Param("id")
 	id, _ = strconv.Atoi(getId)
-	reading := repository.DbFindOne(id)
+	reading, err := repository.DbFindOne(id)
+	if err != nil{
+		log.Fatal(err)
+	}
 	ctx.HTML(200, "item.html", gin.H{
 		"reading": reading,
 	})
@@ -34,7 +41,10 @@ func ReadingEditPage(ctx *gin.Context) {
 	var id int
 	getId := ctx.Param("id")
 	id, _ = strconv.Atoi(getId)
-	reading := repository.DbFindOne(id)
+	reading, err := repository.DbFindOne(id)
+	if err != nil {
+		log.Fatal(err)
+	}
 	ctx.HTML(200, "edit.html", gin.H{
 		"reading": reading,
 	})
@@ -45,8 +55,11 @@ func ReadingCreate(ctx *gin.Context) {
 	review := ctx.PostForm("review")
 	file, _ := ctx.FormFile("file")
 	impression := ctx.PostForm("impression")
-	repository.DbCreate(title, price, review, file.Filename, impression)
-	filePath := "C:\\Users\\tyazaki\\Documents\\env\\golang\\reading\\img\\" + file.Filename
+	err:= repository.DbCreate(title, price, review, file.Filename, impression)
+	if err !=nil {
+		log.Fatal(err)
+	}
+	filePath := imgPath + file.Filename
 	ctx.SaveUploadedFile(file, filePath)
 	ctx.Redirect(302, "/")
 }
